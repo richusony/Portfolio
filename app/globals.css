@@ -49,6 +49,16 @@
   }
 }
 
+::-webkit-scrollbar {
+  width: 4px;
+  background-color: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(60, 60, 252);
+  border-radius: 2px;
+}
+
 @layer base {
   * {
     @apply border-border;

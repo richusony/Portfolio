@@ -17,7 +17,7 @@ export default function Testimonials() {
         const all: ReviewWithProject[] = []
         projects.forEach((p) => {
           (p.reviews ?? []).forEach((r) => {
-            if (r.submitted && r.content) all.push({ ...r, projectTitle: p.title })
+            if (r.content) all.push({ ...r, projectTitle: p.title })
           })
         })
         setReviews(all)

@@ -70,7 +70,7 @@ export default function ManageProjects() {
               : null
 
             return (
-              <div key={p._id} className="flex items-center gap-4 p-4 group">
+              <div key={p._id} className="flex items-center gap-4 p-4">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
                     <p className="text-sm font-semibold" style={{ color: "var(--t1)" }}>{p.title}</p>
@@ -99,7 +99,7 @@ export default function ManageProjects() {
                   {p.status.replace("_", " ")}
                 </span>
 
-                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex items-center gap-1">
                   {p.liveUrl && (
                     <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors" style={{ color: "var(--t3)" }}
                       onMouseEnter={(e) => (e.currentTarget.style.color = "var(--p)")}

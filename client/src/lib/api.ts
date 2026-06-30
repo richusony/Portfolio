@@ -3,16 +3,16 @@ const API = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000"
 function getToken(): string | null {
   if (typeof document === "undefined") return null
   const match = document.cookie.match(/(?:^|;\s*)manage_token=([^;]*)/)
-  return match ? decodeURIComponent(match[1]) : null
+  return match ? match[1] : null
 }
 
 export function setToken(token: string) {
   const exp = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toUTCString()
-  document.cookie = `manage_token=${encodeURIComponent(token)}; path=/; expires=${exp}; SameSite=Lax`
+  document.cookie = `manage_token=${token}; path=/; expires=${exp}; SameSite=Lax`
 }
 
 export function clearToken() {
-  document.cookie = "manage_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"
+  document.cookie = "manage_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax"
 }
 
 async function req<T>(path: string, opts?: RequestInit): Promise<T> {

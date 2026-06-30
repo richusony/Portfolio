@@ -3,8 +3,8 @@ const services = [
     icon: "📱",
     gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
     title: "Mobile App Development",
-    desc: "Cross-platform iOS & Android apps that feel native. Built with React Native or Flutter, optimized for performance, offline-first, App Store ready.",
-    tags: ["React Native", "Flutter", "iOS", "Android"],
+    desc: "Cross-platform iOS & Android apps that feel native. Built with React Native, powered by Supabase for real-time data, offline-first, App Store ready.",
+    tags: ["React Native", "Supabase", "iOS", "Android"],
     highlight: "Most Popular",
   },
   {

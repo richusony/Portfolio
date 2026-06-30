@@ -85,7 +85,7 @@ export default function Hero() {
 
             {/* Description */}
             <p className="text-base leading-relaxed max-w-lg" style={{ color: "var(--t2)" }}>
-              I build <strong style={{ color: "var(--t1)", fontWeight: 600 }}>high-quality digital products</strong> at prices that won&apos;t break the bank.
+              I build <strong style={{ color: "var(--t1)", fontWeight: 600 }}>high-quality digital products </strong> at prices that won&apos;t break the bank.
               From cross-platform mobile apps to lightning-fast web platforms — delivered fast, built to last.
             </p>
 
@@ -115,7 +115,7 @@ export default function Hero() {
 
             {/* Tech stack pills */}
             <div className="flex flex-wrap gap-2 pt-2">
-              {["React", "Next.js", "React Native", "Flutter", "Node.js", "TypeScript"].map((t) => (
+              {["React", "Next.js", "React Native", "Supabase", "Node.js", "TypeScript"].map((t) => (
                 <span key={t} className="badge">{t}</span>
               ))}
             </div>
@@ -164,7 +164,7 @@ export default function Hero() {
                   style={{ background: "linear-gradient(to top, var(--surface), transparent)" }}
                 />
                 <div className="absolute bottom-4 left-4 right-4">
-                  <p className="text-sm font-bold" style={{ color: "var(--t1)", fontFamily: "var(--font-display)" }}>Richusony</p>
+                  <p className="text-sm font-bold" style={{ color: "var(--t1)", fontFamily: "var(--font-display)" }}>Richu Sony</p>
                   <p className="text-xs" style={{ color: "var(--t2)" }}>Full-Stack Developer</p>
                 </div>
               </div>

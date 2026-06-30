@@ -52,7 +52,7 @@ export async function seedDatabase() {
       description: "Mental wellness mobile app with guided meditation, mood tracking, and personalized AI insights.",
       longDesc: "Designed and built a cross-platform wellness app with 50+ guided meditation sessions, daily mood journaling with sentiment analysis, sleep tracking, and AI-generated personalized wellness reports.",
       type: "mobile_app", status: "completed",
-      tags: ["Flutter", "Firebase", "TensorFlow Lite", "Node.js"], featured: false, year: 2024,
+      tags: ["Supabase", "Firebase", "TensorFlow Lite", "Node.js"], featured: false, year: 2024,
     },
     {
       title: "ProDesk CRM Suite",

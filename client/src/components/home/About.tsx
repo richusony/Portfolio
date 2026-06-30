@@ -3,14 +3,14 @@ import { useState, useEffect, useRef } from "react"
 
 const skills = [
   { name: "React / Next.js", pct: 95, color: "var(--accent)" },
-  { name: "React Native / Flutter", pct: 90, color: "var(--p)" },
+  { name: "React Native / Mobile", pct: 90, color: "var(--p)" },
   { name: "Node.js / Express", pct: 88, color: "var(--green)" },
   { name: "TypeScript", pct: 92, color: "var(--p-light)" },
   { name: "UI/UX Design", pct: 85, color: "var(--pink)" },
   { name: "Database Design", pct: 87, color: "var(--amber)" },
 ]
 
-const techs = ["React", "Next.js", "React Native", "Flutter", "Node.js", "TypeScript", "Python", "PostgreSQL", "MongoDB", "TailwindCSS", "Figma", "Firebase", "AWS", "Docker", "GraphQL"]
+const techs = ["React", "Next.js", "React Native", "Supabase", "Node.js", "TypeScript", "Python", "PostgreSQL", "MongoDB", "TailwindCSS", "Figma", "Firebase", "AWS", "Docker", "GraphQL"]
 
 function SkillBar({ name, pct, color }: { name: string; pct: number; color: string }) {
   const [width, setWidth] = useState(0)

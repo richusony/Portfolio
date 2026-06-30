@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
-    { "@type": "Person", "@id": `${BASE}/#person`, name: "Richusony", url: BASE, image: `${BASE}/profile.png`, jobTitle: "Full-Stack Developer", description: "Affordable freelance developer — mobile apps, websites, desktop software.", knowsAbout: ["Web Development","Mobile App Development","React Native","Next.js","Flutter","Node.js","TypeScript","UI/UX Design"], contactPoint: { "@type": "ContactPoint", email: "dev.richusony@gmail.com", availableLanguage: ["English","Malayalam"] }, sameAs: ["https://github.com/richusony","https://linkedin.com/in/richusony"] },
+    { "@type": "Person", "@id": `${BASE}/#person`, name: "Richusony", url: BASE, image: `${BASE}/profile.png`, jobTitle: "Full-Stack Developer", description: "Affordable freelance developer — mobile apps, websites, desktop software.", knowsAbout: ["Web Development","Mobile App Development","React Native","Next.js","Supabase","Node.js","TypeScript","UI/UX Design"], contactPoint: { "@type": "ContactPoint", email: "dev.richusony@gmail.com", availableLanguage: ["English","Malayalam"] }, sameAs: ["https://github.com/richusony","https://linkedin.com/in/richusony"] },
     { "@type": "ProfessionalService", "@id": `${BASE}/#service`, name: "Richusony Development Services", url: BASE, description: "Affordable mobile app, web, and desktop development", provider: { "@id": `${BASE}/#person` }, areaServed: "Worldwide", priceRange: "₹₹" },
     { "@type": "WebSite", "@id": `${BASE}/#website`, url: BASE, name: "Richusony Portfolio", publisher: { "@id": `${BASE}/#person` } },
   ],

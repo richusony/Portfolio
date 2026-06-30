@@ -36,7 +36,7 @@ app.use("/api/reviews", reviewRoutes)
 // Seed endpoint
 app.get("/api/init", async (_req, res) => {
   try {
-    const { seedDatabase } = await import("./scripts/seed")
+    const { seedDatabase } = await import("./scripts/seed.js")
     const result = await seedDatabase()
     res.json({ ok: true, ...result })
   } catch (err) {

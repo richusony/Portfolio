@@ -1,16 +1,17 @@
 "use client"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import {
-  LayoutDashboard, FolderKanban, Users, LogOut, ChevronLeft, ChevronRight, Menu
+  LayoutDashboard, FolderKanban, Users, Inbox, LogOut, ChevronLeft, ChevronRight, Menu
 } from "lucide-react"
-import { clearToken } from "@/lib/api"
+import { clearToken, api } from "@/lib/api"
 
 const NAV = [
   { href: "/manage", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { href: "/manage/projects", label: "Projects", icon: FolderKanban },
   { href: "/manage/clients", label: "Clients", icon: Users },
+  { href: "/manage/messages", label: "Messages", icon: Inbox },
 ]
 
 function SidebarContent({
@@ -18,11 +19,13 @@ function SidebarContent({
   onNavClick,
   onLogout,
   isActive,
+  unreadMessages,
 }: {
   collapsed: boolean
   onNavClick: () => void
   onLogout: () => void
   isActive: (href: string, exact?: boolean) => boolean
+  unreadMessages: number
 }) {
   return (
     <>
@@ -46,6 +49,7 @@ function SidebarContent({
       <nav className="flex-1 py-4 px-2 space-y-1 overflow-y-auto">
         {NAV.map(({ href, label, icon: Icon, exact }) => {
           const active = isActive(href, exact)
+          const badge = label === "Messages" && unreadMessages > 0 ? unreadMessages : 0
           return (
             <Link
               key={href}
@@ -58,7 +62,25 @@ function SidebarContent({
               }}
             >
               <Icon size={17} className="flex-shrink-0" />
-              {!collapsed && label}
+              {!collapsed && (
+                <>
+                  <span className="flex-1">{label}</span>
+                  {badge > 0 && (
+                    <span
+                      className="text-[10px] font-bold px-1.5 py-0.5 rounded-full leading-none"
+                      style={{ background: "var(--p)", color: "#fff" }}
+                    >
+                      {badge}
+                    </span>
+                  )}
+                </>
+              )}
+              {collapsed && badge > 0 && (
+                <span
+                  className="absolute top-1 right-1 w-2 h-2 rounded-full"
+                  style={{ background: "var(--p)" }}
+                />
+              )}
             </Link>
           )
         })}
@@ -84,8 +106,17 @@ export default function ManageLayout({ children }: { children: React.ReactNode }
   const router = useRouter()
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [unreadMessages, setUnreadMessages] = useState(0)
+  const isLogin = pathname === "/manage/login"
 
-  if (pathname === "/manage/login") return <>{children}</>
+  useEffect(() => {
+    if (isLogin) return
+    api.messages.list()
+      .then((msgs) => setUnreadMessages(msgs.filter((m) => !m.read).length))
+      .catch(() => {})
+  }, [pathname, isLogin])
+
+  if (isLogin) return <>{children}</>
 
   const logout = () => {
     clearToken()
@@ -115,6 +146,7 @@ export default function ManageLayout({ children }: { children: React.ReactNode }
             onNavClick={() => {}}
             onLogout={logout}
             isActive={isActive}
+            unreadMessages={unreadMessages}
           />
         </aside>
         {/* Collapse toggle — outside the aside so overflow:hidden doesn't clip it */}
@@ -142,6 +174,7 @@ export default function ManageLayout({ children }: { children: React.ReactNode }
               onNavClick={() => setMobileOpen(false)}
               onLogout={logout}
               isActive={isActive}
+              unreadMessages={unreadMessages}
             />
           </aside>
         </div>

@@ -2,22 +2,32 @@
 import { useState } from "react"
 import { Send, Mail, Clock, CheckCircle2 } from "lucide-react"
 import { GithubIcon, LinkedinIcon, TwitterIcon } from "@/components/ui/SocialIcons"
+import { api } from "@/lib/api"
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", budget: "", message: "" })
+  const [form, setForm] = useState({ name: "", email: "", phone: "", budget: "", message: "" })
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    const subject = encodeURIComponent(`Project Inquiry — ${form.name}${form.budget ? ` (${form.budget})` : ""}`)
-    const body = encodeURIComponent(
-      `Hi Richusony,\n\nI'm reaching out about a project.\n\nBudget: ${form.budget || "Not specified"}\n\n${form.message}\n\n---\nFrom: ${form.name}\nReply-to: ${form.email}`
-    )
-    window.location.href = `mailto:dev.richusony@gmail.com?subject=${subject}&body=${body}`
-    setSent(true)
-    setLoading(false)
+    setError("")
+    try {
+      await api.messages.submit({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        budget: form.budget || undefined,
+        message: form.message,
+      })
+      setSent(true)
+    } catch {
+      setError("Something went wrong. Please try emailing me directly.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -99,10 +109,10 @@ export default function Contact() {
             {sent ? (
               <div className="card p-12 text-center">
                 <CheckCircle2 size={48} className="mx-auto mb-4" style={{ color: "var(--green)" }} />
-                <h3 className="font-black text-xl mb-2" style={{ color: "var(--t1)", fontFamily: "var(--font-display)" }}>Email Draft Ready!</h3>
-                <p className="text-sm mb-6" style={{ color: "var(--t2)" }}>Your email client should have opened with a pre-filled message — just hit Send to reach me.</p>
+                <h3 className="font-black text-xl mb-2" style={{ color: "var(--t1)", fontFamily: "var(--font-display)" }}>Message Sent!</h3>
+                <p className="text-sm mb-6" style={{ color: "var(--t2)" }}>Thanks for reaching out. I'll get back to you within 24 hours.</p>
                 <button
-                  onClick={() => { setSent(false); setForm({ name: "", email: "", budget: "", message: "" }) }}
+                  onClick={() => { setSent(false); setForm({ name: "", email: "", phone: "", budget: "", message: "" }) }}
                   className="btn-secondary"
                 >
                   Send Another
@@ -110,6 +120,11 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={submit} className="card p-8 space-y-5">
+                {error && (
+                  <div className="px-4 py-3 rounded-xl text-sm" style={{ background: "var(--red-muted, #fee2e2)", color: "var(--red, #dc2626)" }}>
+                    {error}
+                  </div>
+                )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Your Name *</label>
@@ -119,6 +134,10 @@ export default function Contact() {
                     <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Email *</label>
                     <input required type="email" placeholder="john@example.com" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="input" />
                   </div>
+                </div>
+                <div>
+                  <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Phone Number *</label>
+                  <input required type="tel" placeholder="+91 98765 43210" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="input" />
                 </div>
                 <div>
                   <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Budget Range</label>

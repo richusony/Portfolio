@@ -84,6 +84,15 @@ export const api = {
     byProject: (projectId: string) => req<Review[]>(`/api/reviews/project/${projectId}`),
   },
 
+  // Messages
+  messages: {
+    submit: (data: { name: string; email: string; phone: string; budget?: string; message: string }) =>
+      req<{ ok: boolean; id: string }>("/api/messages", { method: "POST", body: JSON.stringify(data) }),
+    list: () => req<ContactMessage[]>("/api/messages"),
+    markRead: (id: string) => req<ContactMessage>(`/api/messages/${id}/read`, { method: "PATCH" }),
+    delete: (id: string) => req<{ ok: boolean }>(`/api/messages/${id}`, { method: "DELETE" }),
+  },
+
   init: () => req<{ ok: boolean; seeded: boolean }>("/api/init"),
 }
 
@@ -138,4 +147,16 @@ export interface Review {
 
 export interface ReviewWithProject extends Omit<Review, "projectId"> {
   projectId: Project
+}
+
+export interface ContactMessage {
+  _id: string
+  name: string
+  email: string
+  phone: string
+  budget: string | null
+  message: string
+  read: boolean
+  createdAt: string
+  updatedAt: string
 }

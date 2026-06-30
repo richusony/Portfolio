@@ -6,6 +6,7 @@ import authRoutes from "./routes/auth"
 import projectRoutes from "./routes/projects"
 import clientRoutes from "./routes/clients"
 import reviewRoutes from "./routes/reviews"
+import messageRoutes from "./routes/messages"
 
 const app = express()
 
@@ -32,6 +33,7 @@ app.use("/api/auth", authRoutes)
 app.use("/api/projects", projectRoutes)
 app.use("/api/clients", clientRoutes)
 app.use("/api/reviews", reviewRoutes)
+app.use("/api/messages", messageRoutes)
 
 // Seed endpoint
 app.get("/api/init", async (_req, res) => {

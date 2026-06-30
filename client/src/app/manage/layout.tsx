@@ -85,6 +85,8 @@ export default function ManageLayout({ children }: { children: React.ReactNode }
   const [collapsed, setCollapsed] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
+  if (pathname === "/manage/login") return <>{children}</>
+
   const logout = () => {
     clearToken()
     router.replace("/manage/login")

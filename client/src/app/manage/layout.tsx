@@ -98,32 +98,35 @@ export default function ManageLayout({ children }: { children: React.ReactNode }
   return (
     <div className="flex min-h-screen" style={{ background: "var(--bg)" }}>
       {/* Desktop Sidebar */}
-      <aside
-        className="hidden md:flex flex-col flex-shrink-0 transition-all duration-200 relative"
-        style={{
-          width: collapsed ? 64 : 220,
-          background: "var(--surface)",
-          borderRight: "1px solid var(--border)",
-          position: "sticky",
-          top: 0,
-          height: "100vh",
-          overflowY: "auto",
-        }}
+      <div
+        className="hidden md:flex flex-shrink-0 transition-all duration-200 relative"
+        style={{ width: collapsed ? 64 : 220, flexShrink: 0, position: "sticky", top: 0, height: "100vh" }}
       >
-        <SidebarContent
-          collapsed={collapsed}
-          onNavClick={() => {}}
-          onLogout={logout}
-          isActive={isActive}
-        />
+        <aside
+          className="flex flex-col w-full h-full"
+          style={{
+            background: "var(--surface)",
+            borderRight: "1px solid var(--border)",
+            overflow: "hidden",
+          }}
+        >
+          <SidebarContent
+            collapsed={collapsed}
+            onNavClick={() => {}}
+            onLogout={logout}
+            isActive={isActive}
+          />
+        </aside>
+        {/* Collapse toggle — outside the aside so overflow:hidden doesn't clip it */}
         <button
           onClick={() => setCollapsed(!collapsed)}
           className="absolute -right-3 top-16 w-6 h-6 rounded-full flex items-center justify-center text-xs z-10"
           style={{ background: "var(--surface)", border: "1px solid var(--border)", color: "var(--t3)" }}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {collapsed ? <ChevronRight size={12} /> : <ChevronLeft size={12} />}
         </button>
-      </aside>
+      </div>
 
       {/* Mobile overlay */}
       {mobileOpen && (

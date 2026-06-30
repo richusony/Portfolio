@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { LogIn, Eye, EyeOff } from "lucide-react"
 import { api, setToken } from "@/lib/api"
@@ -20,9 +20,9 @@ export default function ManageLogin() {
       const data = await api.auth.login(email, password)
       setToken(data.token)
       router.replace("/manage")
+      // Keep loading=true during navigation — cleared when component unmounts
     } catch (e: any) {
       setError(e.message ?? "Login failed")
-    } finally {
       setLoading(false)
     }
   }

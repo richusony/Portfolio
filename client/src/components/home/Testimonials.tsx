@@ -25,8 +25,6 @@ export default function Testimonials() {
       .finally(() => setLoading(false))
   }, [])
 
-  if (!loading && reviews.length === 0) return null
-
   return (
     <section id="reviews" className="py-28" style={{ background: "var(--bg-2)" }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -48,6 +46,21 @@ export default function Testimonials() {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[1, 2, 3].map((i) => <div key={i} className="h-44 skeleton rounded-2xl" />)}
+          </div>
+        ) : reviews.length === 0 ? (
+          <div className="text-center py-16">
+            <div
+              className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
+              style={{ background: "var(--p-muted)" }}
+            >
+              <Quote size={28} style={{ color: "var(--p)" }} />
+            </div>
+            <p className="font-semibold mb-2" style={{ color: "var(--t1)", fontFamily: "var(--font-display)" }}>
+              Reviews incoming
+            </p>
+            <p className="text-sm max-w-xs mx-auto" style={{ color: "var(--t3)" }}>
+              Collecting feedback from recent client collaborations — check back soon.
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

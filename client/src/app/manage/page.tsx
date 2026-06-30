@@ -39,7 +39,7 @@ export default function ManageDashboard() {
           return (
             <Link key={s.label} href={s.href} className="card p-5 group">
               <div className="flex items-center justify-between mb-3">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `${s.color}18` }}>
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `color-mix(in srgb, ${s.color} 15%, transparent)` }}>
                   <Icon size={18} style={{ color: s.color }} />
                 </div>
                 <ArrowRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--t3)" }} />

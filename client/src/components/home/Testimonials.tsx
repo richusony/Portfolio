@@ -17,7 +17,7 @@ export default function Testimonials() {
         const all: ReviewWithProject[] = []
         projects.forEach((p) => {
           (p.reviews ?? []).forEach((r) => {
-            if (r.content) all.push({ ...r, projectTitle: p.title })
+            if (r.submitted && r.content) all.push({ ...r, projectTitle: p.title })
           })
         })
         setReviews(all)
@@ -51,8 +51,8 @@ export default function Testimonials() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {reviews.map((r, i) => (
-              <div key={i} className="card p-6 flex flex-col gap-4 group">
+            {reviews.map((r) => (
+              <div key={r._id} className="card p-6 flex flex-col gap-4 group">
                 <div className="flex items-start justify-between">
                   <Quote size={20} style={{ color: "var(--p)", opacity: 0.4 }} />
                   {r.rating && (

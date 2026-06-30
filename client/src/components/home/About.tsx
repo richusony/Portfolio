@@ -1,6 +1,5 @@
 "use client"
 import { useState, useEffect, useRef } from "react"
-import Image from "next/image"
 
 const skills = [
   { name: "React / Next.js", pct: 95, color: "var(--accent)" },
@@ -11,7 +10,7 @@ const skills = [
   { name: "Database Design", pct: 87, color: "var(--amber)" },
 ]
 
-const techs = ["React", "Next.js", "React Native", "Flutter", "Node.js", "TypeScript", "Python", "PostgreSQL", "MongoDB", "Prisma", "TailwindCSS", "Figma", "Firebase", "AWS", "Docker", "GraphQL"]
+const techs = ["React", "Next.js", "React Native", "Flutter", "Node.js", "TypeScript", "Python", "PostgreSQL", "MongoDB", "TailwindCSS", "Figma", "Firebase", "AWS", "Docker", "GraphQL"]
 
 function SkillBar({ name, pct, color }: { name: string; pct: number; color: string }) {
   const [width, setWidth] = useState(0)
@@ -80,7 +79,7 @@ export default function About() {
                 { emoji: "🌍", title: "Global Clients", desc: "Worked across 10+ countries" },
                 { emoji: "💬", title: "Always Available", desc: "Responsive communication" },
               ].map((t) => (
-                <div key={t.title} className="card p-4">
+                <div key={t.title} className="card card-static p-4">
                   <div className="text-xl mb-2">{t.emoji}</div>
                   <p className="text-sm font-semibold mb-0.5" style={{ color: "var(--t1)", fontFamily: "var(--font-display)" }}>{t.title}</p>
                   <p className="text-xs" style={{ color: "var(--t3)" }}>{t.desc}</p>
@@ -99,7 +98,7 @@ export default function About() {
 
           {/* Right — Skills */}
           <div>
-            <div className="card p-7 space-y-6">
+            <div className="card card-static p-7 space-y-6">
               <h3 className="font-bold text-base" style={{ color: "var(--t1)", fontFamily: "var(--font-display)" }}>
                 Technical Proficiency
               </h3>
@@ -113,8 +112,8 @@ export default function About() {
                 { year: "2023", role: "Full-Stack Developer", type: "Agency", color: "var(--p)" },
                 { year: "2021", role: "Junior Developer", type: "Startup", color: "var(--accent)" },
               ].map((e) => (
-                <div key={e.year} className="flex items-center gap-4 card p-4">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: `${e.color}18`, color: e.color }}>
+                <div key={e.year} className="flex items-center gap-4 card card-static p-4">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0" style={{ background: `color-mix(in srgb, ${e.color} 15%, transparent)`, color: e.color }}>
                     {e.year}
                   </div>
                   <div>

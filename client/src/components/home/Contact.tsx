@@ -8,10 +8,14 @@ export default function Contact() {
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const submit = async (e: React.FormEvent) => {
+  const submit = (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    await new Promise((r) => setTimeout(r, 1200))
+    const subject = encodeURIComponent(`Project Inquiry — ${form.name}${form.budget ? ` (${form.budget})` : ""}`)
+    const body = encodeURIComponent(
+      `Hi Richusony,\n\nI'm reaching out about a project.\n\nBudget: ${form.budget || "Not specified"}\n\n${form.message}\n\n---\nFrom: ${form.name}\nReply-to: ${form.email}`
+    )
+    window.location.href = `mailto:dev.richusony@gmail.com?subject=${subject}&body=${body}`
     setSent(true)
     setLoading(false)
   }
@@ -43,7 +47,7 @@ export default function Contact() {
               { icon: Clock, label: "Response Time", val: "Within 24 hours", href: null, color: "var(--green)" },
             ].map(({ icon: Icon, label, val, href, color }) => (
               <div key={label} className="card p-4 flex items-center gap-4">
-                <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `${color}18` }}>
+                <div className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: `color-mix(in srgb, ${color} 15%, transparent)` }}>
                   <Icon size={18} style={{ color }} />
                 </div>
                 <div>
@@ -95,8 +99,8 @@ export default function Contact() {
             {sent ? (
               <div className="card p-12 text-center">
                 <CheckCircle2 size={48} className="mx-auto mb-4" style={{ color: "var(--green)" }} />
-                <h3 className="font-black text-xl mb-2" style={{ color: "var(--t1)", fontFamily: "var(--font-display)" }}>Message Sent!</h3>
-                <p className="text-sm mb-6" style={{ color: "var(--t2)" }}>Thanks! I&apos;ll get back to you within 24 hours.</p>
+                <h3 className="font-black text-xl mb-2" style={{ color: "var(--t1)", fontFamily: "var(--font-display)" }}>Email Draft Ready!</h3>
+                <p className="text-sm mb-6" style={{ color: "var(--t2)" }}>Your email client should have opened with a pre-filled message — just hit Send to reach me.</p>
                 <button
                   onClick={() => { setSent(false); setForm({ name: "", email: "", budget: "", message: "" }) }}
                   className="btn-secondary"

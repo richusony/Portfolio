@@ -1,7 +1,7 @@
 "use client"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
-import { ArrowRight, Download, Sparkles, Code2, Smartphone, Globe } from "lucide-react"
+import { ArrowRight, MessageCircle, Sparkles } from "lucide-react"
 
 const roles = ["Full-Stack Developer", "Mobile App Engineer", "UI/UX Designer", "React Native Expert"]
 
@@ -38,7 +38,9 @@ export default function Hero() {
   }, [typed, typing, roleIdx])
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden hero-glow dot-grid">
+    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden hero-glow">
+      {/* Dot grid overlay — separate div so it doesn't conflict with hero-glow background */}
+      <div className="absolute inset-0 dot-grid pointer-events-none" style={{ opacity: 0.6 }} />
       {/* Decorative blobs */}
       <div className="absolute top-1/4 right-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, var(--p-glow) 0%, transparent 70%)", filter: "blur(60px)" }} />
@@ -107,7 +109,7 @@ export default function Hero() {
                 View My Work <ArrowRight size={16} />
               </a>
               <a href="#contact" className="btn-secondary">
-                <Download size={16} /> Get a Free Quote
+                <MessageCircle size={16} /> Get a Free Quote
               </a>
             </div>
 

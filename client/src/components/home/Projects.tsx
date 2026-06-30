@@ -23,11 +23,12 @@ export default function Projects() {
   const [projects, setProjects] = useState<Project[]>([])
   const [filter, setFilter] = useState("all")
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     api.projects.list()
       .then(setProjects)
-      .catch(console.error)
+      .catch(() => setError(true))
       .finally(() => setLoading(false))
   }, [])
 
@@ -77,6 +78,11 @@ export default function Projects() {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[...Array(6)].map((_, i) => <div key={i} className="h-64 skeleton rounded-2xl" />)}
+          </div>
+        ) : error ? (
+          <div className="py-20 text-center space-y-2">
+            <p className="font-semibold" style={{ color: "var(--t2)" }}>Couldn&apos;t load projects</p>
+            <p className="text-sm" style={{ color: "var(--t3)" }}>Check back soon or <a href="#contact" className="underline" style={{ color: "var(--p)" }}>reach out directly</a>.</p>
           </div>
         ) : filtered.length === 0 ? (
           <div className="py-20 text-center" style={{ color: "var(--t3)" }}>No projects found.</div>

@@ -96,6 +96,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
+  scroll-padding-top: 80px;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
@@ -169,6 +170,13 @@ body {
   transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
   border-color: var(--border-2);
+}
+
+/* Static cards (decorative, non-interactive) — no hover lift */
+.card-static:hover {
+  transform: none;
+  box-shadow: var(--shadow-sm);
+  border-color: var(--border);
 }
 
 /* ─── Buttons ────────────────────────────────────────── */

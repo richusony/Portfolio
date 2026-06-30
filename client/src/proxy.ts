@@ -18,4 +18,4 @@ export async function proxy(req: NextRequest) {
   }
 }
 
-export const config = { matcher: ["/manage/((?!login).*)"] }
+export const config = { matcher: ["/manage((?!/login).*)"] }

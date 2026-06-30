@@ -98,7 +98,7 @@ export default function Footer() {
           style={{ borderTop: "1px solid var(--border)" }}
         >
           <p className="text-xs" style={{ color: "var(--t3)" }}>
-            © {new Date().getFullYear()} Richusony. All rights reserved.
+            © {new Date().getFullYear()} Richu Sony. All rights reserved.
           </p>
           <p className="text-xs" style={{ color: "var(--t3)" }}>Crafted with precision · richusony.in</p>
         </div>

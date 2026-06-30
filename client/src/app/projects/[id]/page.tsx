@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const project = await getProject(id)
   if (!project) return { title: "Project Not Found" }
   return {
-    title: `${project.title} · Richusony`,
+    title: `${project.title} · Richu Sony`,
     description: project.description,
     openGraph: { title: project.title, description: project.description },
   }
@@ -52,7 +52,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ id: st
     "@type": "CreativeWork",
     name: project.title,
     description: project.description,
-    creator: { "@type": "Person", name: "Richusony", url: "https://richusony.in" },
+    creator: { "@type": "Person", name: "Richu Sony", url: "https://richusony.in" },
     dateCreated: String(project.year),
     url: project.liveUrl ?? undefined,
   }

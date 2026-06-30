@@ -63,7 +63,7 @@ export default function Hero() {
             {/* Heading */}
             <div className="space-y-1">
               <p className="text-base font-semibold" style={{ color: "var(--t2)", fontFamily: "var(--font-display)" }}>
-                Hi, I&apos;m Richusony 👋
+                Hi, I&apos;m Richu Sony 👋
               </p>
               <h1
                 className="font-black leading-[1.05] tracking-tight"
@@ -152,7 +152,7 @@ export default function Hero() {
               >
                 <Image
                   src="/profile.png"
-                  alt="Richusony — Full-Stack Developer"
+                  alt="Richu Sony — Full-Stack Developer"
                   fill
                   className="object-cover object-top"
                   priority

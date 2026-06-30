@@ -3,6 +3,60 @@ import { useEffect, useState } from "react"
 import { Plus, Pencil, Trash2, ChevronDown, ChevronRight } from "lucide-react"
 import { api, type ClientWithProjects } from "@/lib/api"
 
+type FormState = { name: string; email: string; company: string; website: string; notes: string }
+
+function ClientFormCard({
+  form,
+  setForm,
+  error,
+  saving,
+  editId,
+  onSubmit,
+  onCancel,
+}: {
+  form: FormState
+  setForm: (f: FormState) => void
+  error: string
+  saving: boolean
+  editId: string | null
+  onSubmit: (e: React.FormEvent) => void
+  onCancel: () => void
+}) {
+  return (
+    <form onSubmit={onSubmit} className="card p-6 space-y-4">
+      {error && <p className="text-xs" style={{ color: "var(--red, #ef4444)" }}>{error}</p>}
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Name *</label>
+          <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="John Doe" className="input" />
+        </div>
+        <div>
+          <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Email</label>
+          <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="john@company.com" className="input" />
+        </div>
+        <div>
+          <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Company</label>
+          <input value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} placeholder="Acme Corp" className="input" />
+        </div>
+        <div>
+          <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Website</label>
+          <input type="url" value={form.website} onChange={(e) => setForm({ ...form, website: e.target.value })} placeholder="https://..." className="input" />
+        </div>
+      </div>
+      <div>
+        <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Notes</label>
+        <textarea rows={2} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} placeholder="Internal notes..." className="input" />
+      </div>
+      <div className="flex gap-3">
+        <button type="submit" disabled={saving} className="btn-primary">
+          {saving ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : editId ? "Save Changes" : "Add Client"}
+        </button>
+        <button type="button" onClick={onCancel} className="btn-secondary">Cancel</button>
+      </div>
+    </form>
+  )
+}
+
 export default function ManageClients() {
   const [clients, setClients] = useState<ClientWithProjects[]>([])
   const [loading, setLoading] = useState(true)
@@ -65,40 +119,6 @@ export default function ManageClients() {
     }
   }
 
-  const ClientFormCard = ({ onCancel }: { onCancel: () => void }) => (
-    <form onSubmit={submit} className="card p-6 space-y-4">
-      {error && <p className="text-xs" style={{ color: "var(--red, #ef4444)" }}>{error}</p>}
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Name *</label>
-          <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="John Doe" className="input" />
-        </div>
-        <div>
-          <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Email</label>
-          <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="john@company.com" className="input" />
-        </div>
-        <div>
-          <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Company</label>
-          <input value={form.company} onChange={(e) => setForm({ ...form, company: e.target.value })} placeholder="Acme Corp" className="input" />
-        </div>
-        <div>
-          <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Website</label>
-          <input type="url" value={form.website} onChange={(e) => setForm({ ...form, website: e.target.value })} placeholder="https://..." className="input" />
-        </div>
-      </div>
-      <div>
-        <label className="block text-xs font-semibold mb-2" style={{ color: "var(--t2)" }}>Notes</label>
-        <textarea rows={2} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} placeholder="Internal notes..." className="input" />
-      </div>
-      <div className="flex gap-3">
-        <button type="submit" disabled={saving} className="btn-primary">
-          {saving ? <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : editId ? "Save Changes" : "Add Client"}
-        </button>
-        <button type="button" onClick={onCancel} className="btn-secondary">Cancel</button>
-      </div>
-    </form>
-  )
-
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -116,7 +136,10 @@ export default function ManageClients() {
       {showNew && (
         <div className="mb-6">
           <h2 className="font-bold text-sm mb-3" style={{ color: "var(--t1)" }}>New Client</h2>
-          <ClientFormCard onCancel={() => { setShowNew(false); resetForm() }} />
+          <ClientFormCard
+            form={form} setForm={setForm} error={error} saving={saving} editId={null}
+            onSubmit={submit} onCancel={() => { setShowNew(false); resetForm() }}
+          />
         </div>
       )}
 
@@ -136,7 +159,10 @@ export default function ManageClients() {
               {editId === c._id ? (
                 <div>
                   <h2 className="font-bold text-sm mb-3" style={{ color: "var(--t1)" }}>Edit {c.name}</h2>
-                  <ClientFormCard onCancel={() => { setEditId(null); resetForm() }} />
+                  <ClientFormCard
+                    form={form} setForm={setForm} error={error} saving={saving} editId={editId}
+                    onSubmit={submit} onCancel={() => { setEditId(null); resetForm() }}
+                  />
                 </div>
               ) : (
                 <div className="card">

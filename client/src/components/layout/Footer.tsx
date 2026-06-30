@@ -100,16 +100,7 @@ export default function Footer() {
           <p className="text-xs" style={{ color: "var(--t3)" }}>
             © {new Date().getFullYear()} Richusony. All rights reserved.
           </p>
-          <div className="flex items-center gap-4">
-            <p className="text-xs" style={{ color: "var(--t3)" }}>Crafted with precision · richusony.in</p>
-            <span className="text-xs" style={{ color: "var(--border)" }}>·</span>
-            <Link href="/manage/login" className="text-xs transition-colors" style={{ color: "var(--t3)" }}
-              onMouseEnter={(e: any) => (e.currentTarget.style.color = "var(--p)")}
-              onMouseLeave={(e: any) => (e.currentTarget.style.color = "var(--t3)")}
-            >
-              Admin
-            </Link>
-          </div>
+          <p className="text-xs" style={{ color: "var(--t3)" }}>Crafted with precision · richusony.in</p>
         </div>
       </div>
     </footer>
